@@ -1,17 +1,12 @@
 var mongoose = require('mongoose');
 var Schema  = mongoose.Schema;
-var ObjectId= mongoose.Types.ObjectId;
 var postSchema = new Schema({
-    _id:{
-        type:Schema.Types.ObjectId,
-        default:new ObjectId
-    },
     title:String,
     description:String,
     media:[{
         type:Schema.Types.ObjectId,
         ref:'Medias'
-    }]
+    }],
     user:{
         type:Schema.Types.ObjectId,
         ref:'Users'
