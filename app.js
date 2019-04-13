@@ -6,6 +6,7 @@ var logger = require('morgan');
 var mongoose = require('./db/dbconnection')
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var passport = require('passport')
 
 var app = express();
 
@@ -18,7 +19,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
+app.use(passport.initialize());
+app.use(passport.session());
+mongoose.set('useFindAndModify', false)
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 

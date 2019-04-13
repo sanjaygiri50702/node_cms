@@ -20,7 +20,6 @@ var userSchema = new Schema({
 });
 userSchema.pre('save', function(next) {
     var user = this;
-    console.log(user)
     // only hash the password if it has been modified (or is new)
     if (!user.isModified('password')) return next();
     // generate a salt
@@ -35,11 +34,13 @@ userSchema.pre('save', function(next) {
         });
     });
 });
-userSchema.methods.comparePassword = function(candidatePassword) {
+userSchema.methods.comparePassword = function(candidatePassword,cb) {
+    console.log(this)
     bcrypt.compare(candidatePassword, this.password, function(err, isMatch) {
-        if (err) return false;
-        if(isMatch) return true;
-        else return false
+        if(err) throw err;
+        console.log('ismatch',isMatch)
+        return cb(null,isMatch)
     });
 };
+
 module.exports = mongoose.model('Users',userSchema);
