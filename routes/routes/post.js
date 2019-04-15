@@ -6,7 +6,7 @@ var User = require('../../model/Users') //get all the post
 var Media = require('../../model/Medias')
 var upload = require('../../config/multer')
 
-router.get('/',(req,res,next)=>{
+router.get('/',isAdmin,(req,res,next)=>{
     Post.find({}).populate('user').exec((err,post)=>{
         if(err) console.log(err);
         res.json(post);
