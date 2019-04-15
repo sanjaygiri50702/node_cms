@@ -7,7 +7,7 @@ var mongoose = require('./db/dbconnection')
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var passport = require('passport')
-
+// var upload = require('./config/multer')
 var app = express();
 
 // view engine setup

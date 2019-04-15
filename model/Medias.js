@@ -5,5 +5,6 @@ var mediaSchema = new Schema({
         type:String,
         default:null
     },
+    image:String
 });
 module.exports = mongoose.model('Medias',mediaSchema);

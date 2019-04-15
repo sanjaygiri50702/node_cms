@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-var dbUrl = require('../config')
+var dbUrl = require('../config/config')
 mongoose.connect(dbUrl,{useNewUrlParser:true})
 .then(()=>{
     console.log('db connection establish');

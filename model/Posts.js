@@ -11,10 +11,10 @@ var postSchema = new Schema({
         type:Schema.Types.ObjectId,
         ref:'Users'
     },
-    page:{
+    page:[{
         type:Schema.Types.ObjectId,
         ref:'Pages'
-    },
+    }],
     createdAt:{
         type:Date,
         default:Date.now()

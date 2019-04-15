@@ -3,8 +3,8 @@ var router = express.Router();
 var isAdmin = require('../auth')
 var Post = require('../../model/Posts')
 var User = require('../../model/Users') //get all the post
-
-
+var Media = require('../../model/Medias')
+var upload = require('../../config/multer')
 
 router.get('/',(req,res,next)=>{
     Post.find({}).populate('user').exec((err,post)=>{
@@ -22,14 +22,29 @@ router.get('/:id',(req,res,next)=>{
     })
 })
 //create post
-router.post('/',(req,res,next)=>{
+router.post('/',upload.single('image'),(req,res,next)=>{
+    // return res.json(req.file);
     User.findById(req.headers.id,(err,user)=>{
+        var post = req.body;
         if(err) return res.json(err)
         if(!user)return res.status.apply(401).json({'err':'user not authorize'})
+        if(req.file){    
+            console.log('body',req.body) 
+            Media.create({image:req.file.filename},(err,media)=>{
+                if(err) throw err;
+                console.log('media',media)
+                Post.create({...post,media:media},(err,post)=>{
+                    if(err) throw err;
+                    res.json(post)
+                })
+            }) 
+        }
+        else{
         Post.create({...req.body,user:user},(err,post)=>{
             if(err) return console.log(err);
             res.json(post)
-        })
+            })
+        }
     })
 });
 router.delete('/:id',(req,res,next)=>{
