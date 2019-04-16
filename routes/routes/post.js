@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var isAdmin = require('../auth')
+var {isAdmin} = require('../auth')
 var Post = require('../../model/Posts')
 var User = require('../../model/Users') //get all the post
 var Media = require('../../model/Medias')

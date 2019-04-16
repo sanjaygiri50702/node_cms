@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var User = require('../../model/Users');
 var passport = require('./passport');
-
+var {isLoggedIn} = require('../auth')
 //get all the user
 
 
@@ -12,6 +12,12 @@ router.get('/',(req,res,next)=>{
         res.json(user);
     })
 });
+
+
+router.get('/test',isLoggedIn,(req,res,next)=>{
+    console.log('You are logged in' )
+    res.send('test')
+})
 router.get('/:id',(req,res,next)=>{
     console.log(req.headers)
     User.findById(req.params.id,(err,user)=>{
@@ -26,6 +32,7 @@ router.get('/logout',(req,res,next)=>{
     res.send('logout')
 
 })
+
 //create new user
 router.post('/register',(req,res,next)=>{
     User.create(req.body,(err,user)=>{
@@ -41,6 +48,7 @@ router.post('/login',(req,res,next)=>{
             req.logIn(user,(err)=>{
                 if(err) throw err;
                 console.log("Request Login  successful.");
+                user.password='';
                 res.set('id',user._id).json(user)
             })
         }

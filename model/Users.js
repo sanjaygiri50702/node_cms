@@ -2,6 +2,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var bcrypt=require('bcrypt')
 var SALT_WORK_FACTOR = 10;
+var validation = require('express-validator')
 
 
 var userSchema = new Schema({
@@ -42,6 +43,7 @@ userSchema.methods.comparePassword = function(candidatePassword,cb) {
         return cb(null,isMatch)
     });
 };
+
 
 
 module.exports = mongoose.model('Users',userSchema);
