@@ -11,9 +11,10 @@ function isAdmin(req,res,next){
 }
 
 function isLoggedIn(req,res,next){
-    console.log(req.user)
+    console.log('user',req.user)
     if(req.isAuthenticated())return next();
-    res.json({err:"u r not authorize"})
+    var err = new Error('you r not authorize');
+    return next(err)
 }
 module.exports.isAdmin  = isAdmin;
 module.exports.isLoggedIn  = isLoggedIn;
