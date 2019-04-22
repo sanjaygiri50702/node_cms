@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var User = require('../../model/Users');
+var Post = require('../../model/Posts')
 var passport = require('./passport');
 var {isLoggedIn} = require('../auth')
 //get all the user
@@ -14,9 +15,13 @@ router.get('/',(req,res,next)=>{
 });
 
 
-router.get('/test',isLoggedIn,(req,res,next)=>{
-    console.log('You are logged in' )
-    res.send('test')
+router.get('/post',isLoggedIn,(req,res,next)=>{
+    console.log(req.session.passport);
+    var userId = req.session.passport.user
+    Post.find({user:userId},(err,post)=>{
+        if(err) throw err;
+        res.json(post)
+    })
 })
 router.get('/:id',(req,res,next)=>{
     console.log(req.headers)

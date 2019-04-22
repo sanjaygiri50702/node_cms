@@ -3,10 +3,10 @@ var Schema = mongoose.Schema;
 var pageSchema = new Schema({
     title:String,
     description:String,
-    image:[{
+    user:{
         type:Schema.Types.ObjectId,
-        ref:'Medias'
-    }],
+        ref:'Users'
+    },
     post:[{
         type:Schema.Types.ObjectId,
         ref:'Posts',

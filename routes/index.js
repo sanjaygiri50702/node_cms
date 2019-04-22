@@ -1,5 +1,6 @@
 var express = require('express');
 var userRouter = require('./routes/user');
+var {isLoggedIn} = require('./auth')
 var postRouter = require('./routes/post');
 var pageRouter = require('./routes/page')
 var mediaRouter = require('./routes/media')
